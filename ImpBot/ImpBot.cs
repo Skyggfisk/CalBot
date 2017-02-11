@@ -135,9 +135,9 @@ namespace ImpBot
                         messagesToDelete = await e.Channel.DownloadMessages(100);
                         await e.Channel.DeleteMessages(messagesToDelete);
                     }
-                    //else if(/*does the bot have the necessary permissions?*/)
+                    //else if (/*does the bot have the necessary permissions?*/)
                     //{
-
+                    //    await e.Channel.SendMessage("No can do. Nuh uh.");
                     //}
                     else
                     {

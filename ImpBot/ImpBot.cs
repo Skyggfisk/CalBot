@@ -11,11 +11,12 @@ namespace ImpBot
 {
     class ImpBot
     {
-        DiscordClient discord;
+        DiscordClient client;
         CommandService commands;
         Random rand;
         string[] images;
         string[] randomTexts;
+
 
         public ImpBot()
         {
@@ -63,28 +64,30 @@ namespace ImpBot
             };
             #endregion
 
-            discord = new DiscordClient(x =>
+            client = new DiscordClient(x =>
             {
                 x.LogLevel = LogSeverity.Info;
                 x.LogHandler = Log;
             });
 
-            discord.UsingCommands(x =>
+            client.UsingCommands(x =>
             {
                 x.PrefixChar = '!';
                 x.AllowMentionPrefix = true;
             });
 
-            commands = discord.GetService<CommandService>();
+            //discord.LogMessage += (s, e) => Console.WriteLine($"[{e.Severity}] {e.Source}: {e.Message}");
+            //var userServerPermissions = 
+            commands = client.GetService<CommandService>();
 
             RegisterGreetingsCommand();
             RegisterImageCommand();
             RegisterRandomTextCommand();
             RegisterPurgeCommand();
 
-            discord.ExecuteAndWait(async () =>
+            client.ExecuteAndWait(async () =>
             {
-                await discord.Connect("Mjc5MzY4MzkzOTczNDMyMzIx.C356Ag.JedWUMyPF2tGY4lOPX0vc3KOwgE", TokenType.Bot);
+                await client.Connect("Mjc5MzY4MzkzOTczNDMyMzIx.C356Ag.JedWUMyPF2tGY4lOPX0vc3KOwgE", TokenType.Bot);
             });
 
         }
@@ -116,6 +119,8 @@ namespace ImpBot
         private void RegisterRandomTextCommand()
         {
             commands.CreateCommand("say")
+                .Alias(new string[] { "silly", "joke", "talk", "imp" })
+                .Description("Sends a random text quote from the randomTexts array.")
                 .Do(async (e) =>
                 {
                     int randomTextsIndex = rand.Next(randomTexts.Length);
@@ -135,7 +140,7 @@ namespace ImpBot
                         messagesToDelete = await e.Channel.DownloadMessages(100);
                         await e.Channel.DeleteMessages(messagesToDelete);
                     }
-                    //else if (/*does the bot have the necessary permissions?*/)
+                    //else if (/*Does the bot have the required permissions?*/)
                     //{
                     //    await e.Channel.SendMessage("No can do. Nuh uh.");
                     //}

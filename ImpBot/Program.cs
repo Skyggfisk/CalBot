@@ -17,7 +17,6 @@ namespace ImpBot
         private DiscordSocketClient client;
         private DependencyMap map;
 
-
         static void Main(string[] args) => new Program().Start().GetAwaiter().GetResult();
 
         public async Task Start()
@@ -30,10 +29,8 @@ namespace ImpBot
             map = new DependencyMap();
 
             await InstallCommands();
-
             await client.LoginAsync(TokenType.Bot, token);
             await client.ConnectAsync();
-
             await Task.Delay(-1);
         }
         public async Task InstallCommands()

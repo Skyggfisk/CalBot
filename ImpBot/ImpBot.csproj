@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="ImpBot.cs" />
     <Compile Include="ImpCommandModule.cs" />
+    <Compile Include="PathsAndTexts.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

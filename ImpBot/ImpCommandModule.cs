@@ -33,7 +33,7 @@ namespace ImpBot
         public async Task Resummon()
         {
             //Context.User.
-            await ReplyAsync("\\*Demonic cackle*");
+            await ReplyAsync("\\*Demonic cackle\\*");
         }
 
         [Command("image"), Summary("Posts an image to chat."), Alias("img", "pic", "picture", "meme")]

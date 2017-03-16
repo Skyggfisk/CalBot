@@ -33,6 +33,7 @@ namespace ImpBot
             //await client.ConnectAsync();
             await client.StartAsync();
             await Task.Delay(-1);
+            
         }
         public async Task InstallCommands()
         {

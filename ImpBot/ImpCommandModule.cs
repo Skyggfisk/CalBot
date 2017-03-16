@@ -15,10 +15,11 @@ namespace ImpBot
     {
         PathsAndTexts pat = new PathsAndTexts();
        
-        [Command("help"), Summary("Get help and general guidelines for bot usage")]
+        [Command("help"), Summary("Get help and general guidelines for bot usage"), Alias("info", "how")]
         public async Task Help()
         {
-            await ReplyAsync($"Need some help text here...");
+            string helptext = System.IO.File.ReadAllText(@"Texts/ImpHelp.txt");
+            await ReplyAsync(helptext);
         }
 
         // Shake the imp to recieve an answer to your questions
@@ -33,7 +34,7 @@ namespace ImpBot
         public async Task Resummon()
         {
             //Context.User.
-            await ReplyAsync("\\*Demonic cackle\\*");
+            await ReplyAsync("\\*Demonic cackle*");
         }
 
         [Command("image"), Summary("Posts an image to chat."), Alias("img", "pic", "picture", "meme")]
@@ -64,11 +65,32 @@ namespace ImpBot
             await ReplyAsync(echo);
         }
 
-        [Command("greet"), Summary("Greets a greeter"), Alias("hi", "hello", "greetings", "gr")]
+        [Command("greet"), Summary("Greets a greeter"), Alias("hi", "hello", "greetings", "hey")]
         public async Task Greet()
         {
             IUser user = Context.Message.Author;
             await ReplyAsync($"Hello {user.Username}!");
+        }
+
+        [Command("roll"), Summary("Roll the dice with input floor and roof")]
+        public async Task RollDice([Summary("The floor of the dice")] int floor, [Summary("The roof of the dice")] int roof)
+        {
+            // Determine the result
+            //int result = 0;
+            Random rand = new Random();
+            int result = rand.Next(floor, roof);
+
+            // Write the result to chat
+            await ReplyAsync($"Result: {result}, floor: {floor}, roof: {roof}");
+        }
+
+        [Command("roll"), Summary("Roll the dice with predetermined floor and roof")]
+        public async Task RollDice()
+        {
+            Random rand = new Random();
+            int result = rand.Next(0, 100);
+
+            await ReplyAsync($"Standard roll result: {result}");
         }
 
         //[Command("purge"), Summary("Purges a text chat"), RequireOwner]

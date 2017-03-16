@@ -1,0 +1,17 @@
+﻿```Markdown
+# Hello there! I'm imp, your friendly neighbourhood demonic helper.
+# =================================================================
+
+Some text and help and info and memes
+	How does
+		Formatting work?
+		Like this?
+		<What will this do?>
+	How about quotations
+		"Cast shadowbolt!"
+
+
+# And some more bricks for this wall:
+	*Cackles in demonic*
+
+```

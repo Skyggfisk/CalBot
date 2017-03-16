@@ -24,13 +24,14 @@ namespace ImpBot
             client = new DiscordSocketClient();
             commands = new CommandService();
 
-            string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C356Ag.JedWUMyPF2tGY4lOPX0vc3KOwgE";
+            string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C6wo4w.uWM2KzfJ7VM3nv0Gg84pDmF3Kpc";
 
             map = new DependencyMap();
 
             await InstallCommands();
             await client.LoginAsync(TokenType.Bot, token);
-            await client.ConnectAsync();
+            //await client.ConnectAsync();
+            await client.StartAsync();
             await Task.Delay(-1);
         }
         public async Task InstallCommands()

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace ImpBot
 {
@@ -20,6 +22,44 @@ namespace ImpBot
         {
             string helptext = System.IO.File.ReadAllText(@"Texts/ImpHelp.txt");
             await ReplyAsync(helptext);
+        }
+
+        [Command("weather")]
+        public async Task Weather([Summary("City input parameter")] string city)
+        {
+            if(string.IsNullOrWhiteSpace(city))
+            {
+                await ReplyAsync("Hey! You gotta give me something to work with here!");
+            }
+            else
+            {
+            // Search openweathermap.org
+            string response;
+            using (var http = new HttpClient())
+                response = await http.GetStringAsync($"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=d8cd7126962561e2317ae72e2c231cc8&units=metric")
+                        .ConfigureAwait(false);
+
+                var data = JsonConvert.DeserializeObject<WeatherData>(response);
+
+                await ReplyAsync(pat.RandomAttackText());
+                await ReplyAsync("```Markdown" + $"\nLocation: {data.name}, {data.sys.country}" + $"\nLat/Lon: {data.coord.lat}, {data.coord.lon}" + $"\n{data.wind.speed} m/s" + "```");
+                
+
+                //var embed = new EmbedBuilder()
+                //    .AddField(fb => fb.WithName("🌍 " + Format.Bold(GetText("location"))).WithValue($"[{data.name + ", " + data.sys.country}](https://openweathermap.org/city/{data.id})").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("📏 " + Format.Bold(GetText("latlong"))).WithValue($"{data.coord.lat}, {data.coord.lon}").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("☁ " + Format.Bold(GetText("condition"))).WithValue(string.Join(", ", data.weather.Select(w => w.main))).WithIsInline(true))
+                //    .AddField(fb => fb.WithName("😓 " + Format.Bold(GetText("humidity"))).WithValue($"{data.main.humidity}%").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("💨 " + Format.Bold(GetText("wind_speed"))).WithValue(data.wind.speed + " m/s").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("🌡 " + Format.Bold(GetText("temperature"))).WithValue(data.main.temp + "°C").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("🔆 " + Format.Bold(GetText("min_max"))).WithValue($"{data.main.temp_min}°C - {data.main.temp_max}°C").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("🌄 " + Format.Bold(GetText("sunrise"))).WithValue($"{data.sys.sunrise.ToUnixTimestamp():HH:mm} UTC").WithIsInline(true))
+                //    .AddField(fb => fb.WithName("🌇 " + Format.Bold(GetText("sunset"))).WithValue($"{data.sys.sunset.ToUnixTimestamp():HH:mm} UTC").WithIsInline(true))
+                //    .WithOkColor()
+                //.WithFooter(efb => efb.WithText("Powered by openweathermap.org").WithIconUrl($"http://openweathermap.org/img/w/{data.weather[0].icon}.png"));
+                //await Context.Channel.EmbedAsync(embed).ConfigureAwait(false);
+
+            }
         }
 
         // Shake the imp to recieve an answer to your questions

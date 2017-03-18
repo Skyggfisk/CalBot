@@ -43,21 +43,9 @@ namespace ImpBot
 
                 await ReplyAsync(pat.RandomAttackText());
                 await ReplyAsync("```Markdown" + $"\nLocation: {data.name}, {data.sys.country}" + $"\nLat/Lon: {data.coord.lat}, {data.coord.lon}" + $"\n{data.wind.speed} m/s" + "```");
-                
-
-                //var embed = new EmbedBuilder()
-                //    .AddField(fb => fb.WithName("🌍 " + Format.Bold(GetText("location"))).WithValue($"[{data.name + ", " + data.sys.country}](https://openweathermap.org/city/{data.id})").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("📏 " + Format.Bold(GetText("latlong"))).WithValue($"{data.coord.lat}, {data.coord.lon}").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("☁ " + Format.Bold(GetText("condition"))).WithValue(string.Join(", ", data.weather.Select(w => w.main))).WithIsInline(true))
-                //    .AddField(fb => fb.WithName("😓 " + Format.Bold(GetText("humidity"))).WithValue($"{data.main.humidity}%").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("💨 " + Format.Bold(GetText("wind_speed"))).WithValue(data.wind.speed + " m/s").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("🌡 " + Format.Bold(GetText("temperature"))).WithValue(data.main.temp + "°C").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("🔆 " + Format.Bold(GetText("min_max"))).WithValue($"{data.main.temp_min}°C - {data.main.temp_max}°C").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("🌄 " + Format.Bold(GetText("sunrise"))).WithValue($"{data.sys.sunrise.ToUnixTimestamp():HH:mm} UTC").WithIsInline(true))
-                //    .AddField(fb => fb.WithName("🌇 " + Format.Bold(GetText("sunset"))).WithValue($"{data.sys.sunset.ToUnixTimestamp():HH:mm} UTC").WithIsInline(true))
-                //    .WithOkColor()
-                //.WithFooter(efb => efb.WithText("Powered by openweathermap.org").WithIconUrl($"http://openweathermap.org/img/w/{data.weather[0].icon}.png"));
-                //await Context.Channel.EmbedAsync(embed).ConfigureAwait(false);
+                var embed = new EmbedBuilder()
+                    .AddField(fb => fb.WithName("Location: ").WithValue($"{data.name}"))
+                    .AddField(fb => fb.WithName("Lat/Lon: ").WithValue($"{data.coord.lat}, {data.coord.lon}"));
 
             }
         }
@@ -133,19 +121,6 @@ namespace ImpBot
             await ReplyAsync($"Standard roll result: {result}");
         }
 
-        //[Command("purge"), Summary("Purges a text chat"), RequireOwner]
-        //public async Task Purge()
-        //{
-        //    IMessage[] messagesToDelete = Context.Channel.GetMessagesAsync(100);
-        //    await Context.Channel.DeleteMessagesAsync(messagesToDelete);
-        //}
-
-        // !sample userinfo --> foxbot#0282
-        // !sample userinfo @Khionu --> Khionu#8708
-        // !sample userinfo Khionu#8708 --> Khionu#8708
-        // !sample userinfo Khionu --> Khionu#8708
-        // !sample userinfo 96642168176807936 --> Khionu#8708
-        // !sample whois 96642168176807936 --> Khionu#8708
         [Command("userinfo"), Summary("Returns info about the current user, or the user parameter, if one passed.")]
         [Alias("user", "whois", "who")]
         public async Task UserInfo([Summary("The (optional) user to get info for")] IUser user = null)

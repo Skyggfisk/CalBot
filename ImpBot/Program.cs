@@ -23,14 +23,12 @@ namespace ImpBot
         {
             client = new DiscordSocketClient();
             commands = new CommandService();
+            map = new DependencyMap();
 
             string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C6wo4w.uWM2KzfJ7VM3nv0Gg84pDmF3Kpc";
 
-            map = new DependencyMap();
-
             await InstallCommands();
             await client.LoginAsync(TokenType.Bot, token);
-            //await client.ConnectAsync();
             await client.StartAsync();
             await Task.Delay(-1);
             
@@ -57,7 +55,7 @@ namespace ImpBot
             // Create a number to track where the prefix ends and the command begins
             int argPos = 0;
             // Determine if the message is a command, based on if it starts with '!' or a mention prefix
-            if (!(message.HasCharPrefix('!', ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (!(message.HasStringPrefix("!imp ", ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
             // Create a Command Context
             var context = new CommandContext(client, message);
             // Execute the command. (result does not indicate a return value, 
@@ -66,41 +64,5 @@ namespace ImpBot
             if (!result.IsSuccess)
                 await context.Channel.SendMessageAsync(result.ErrorReason);
         }
-
-
-
-
-
-
-
-        //// Convert our sync-main to an async main method
-        //static void Main(string[] args) => new Program().Run().GetAwaiter().GetResult();
-
-        //// Create a DiscordClient with WebSocket support
-        //private DiscordSocketClient client;
-
-        //public async Task Run()
-        //{
-        //    client = new DiscordSocketClient();
-
-        //    // Place the token of your bot account here
-        //    string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C356Ag.JedWUMyPF2tGY4lOPX0vc3KOwgE";
-
-        //    // Hook into the MessageReceived event on DiscordSocketClient
-        //    client.MessageReceived += async (message) =>
-        //    {   // Check to see if the Message Content is "!ping"
-        //        if (message.Content == "!ping")
-        //            // Send 'pong' back to the channel the message was sent in
-        //            await message.Channel.SendMessageAsync("pong");
-        //    };
-
-        //    // Configure the client to use a Bot token, and use our token
-        //    await client.LoginAsync(TokenType.Bot, token);
-        //    // Connect the client to Discord's gateway
-        //    await client.ConnectAsync();
-
-        //    // Block this task until the program is exited.
-        //    await Task.Delay(-1);
-        //}
     }
 }

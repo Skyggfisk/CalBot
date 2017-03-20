@@ -15,7 +15,6 @@ namespace ImpBot
         private string[] miscTexts;
         private string[] shakeTexts;
         private string[] summonTexts;
-        //private string helpText;
         private Random rand;
 
         public PathsAndTexts()
@@ -95,8 +94,6 @@ namespace ImpBot
 
             rand = new Random();
         }
-
-
 
         public string RandomImage()
         {

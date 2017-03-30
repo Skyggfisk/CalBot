@@ -29,5 +29,20 @@ namespace ImpBot
 
             await ReplyAsync($"Standard roll result: {result}");
         }
+
+        // TODO: Needs some way to stop the countdown.
+        [Command("countdown"), Summary("Count down from specified integer")]
+        [Alias("cd", "countfrom")]
+        public async Task CountDown([Summary("The integer to count down from")] int countFrom)
+        {
+            await ReplyAsync($"Starting countdown from {countFrom}.\nImp unavailable until countdown has completed.");
+            while(countFrom >= 0)
+            {
+                await ReplyAsync("\t" + countFrom);
+                countFrom--;
+                await Task.Delay(1000);
+            }
+            await ReplyAsync("Finished count down.");
+        }
     }
 }

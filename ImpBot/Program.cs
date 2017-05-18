@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Discord;
 using Discord.WebSocket;
@@ -11,40 +7,40 @@ using System.Reflection;
 
 namespace ImpBot
 {
-    class Program
+    public class Program
     {
-        private CommandService commands;
-        private DiscordSocketClient client;
-        private DependencyMap map;
+        private CommandService _commands;
+        private DiscordSocketClient _client;
+        private DependencyMap _map;
 
-        static void Main(string[] args) => new Program().Start().GetAwaiter().GetResult();
+        private static void Main() => new Program().Start().GetAwaiter().GetResult();
 
         public async Task Start()
         {
-            client = new DiscordSocketClient();
-            commands = new CommandService();
-            map = new DependencyMap();
+            _client = new DiscordSocketClient();
+            _commands = new CommandService();
+            _map = new DependencyMap();
 
-            string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C6wo4w.uWM2KzfJ7VM3nv0Gg84pDmF3Kpc";
+            const string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C6wo4w.uWM2KzfJ7VM3nv0Gg84pDmF3Kpc";
 
             await InstallCommands();
-            await client.LoginAsync(TokenType.Bot, token);
-            await client.StartAsync();
+            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.StartAsync();
             await Task.Delay(-1);
-            
+
         }
         public async Task InstallCommands()
         {
             // Hook the MessageReceived Event into our Command Handler
-            client.MessageReceived += HandleCommand;
+            _client.MessageReceived += HandleCommand;
             // Discover all of the commands in this assembly and load them.
-            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
         public async Task CreateCommands()
         {
-            client.MessageReceived += HandleCommand;
-            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            _client.MessageReceived += HandleCommand;
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
         public async Task HandleCommand(SocketMessage messageParam)
@@ -53,14 +49,14 @@ namespace ImpBot
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
             // Create a number to track where the prefix ends and the command begins
-            int argPos = 0;
+            var argPos = 0;
             // Determine if the message is a command, based on if it starts with '!' or a mention prefix
-            if (!(message.HasStringPrefix("!imp ", ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))) return;
+            if (!(message.HasStringPrefix("!imp ", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
             // Create a Command Context
-            var context = new CommandContext(client, message);
+            var context = new CommandContext(_client, message);
             // Execute the command. (result does not indicate a return value, 
             // rather an object stating if the command executed succesfully)
-            var result = await commands.ExecuteAsync(context, argPos, map);
+            var result = await _commands.ExecuteAsync(context, argPos, _map);
             if (!result.IsSuccess)
                 await context.Channel.SendMessageAsync(result.ErrorReason);
         }

@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImpBot
 {
-    class PathsAndTexts
+    public class PathsAndTexts
     {
-        private string[] images;
-        private string[] attackTexts;
-        private string[] spellTexts;
-        private string[] dismissTexts;
-        private string[] miscTexts;
-        private string[] shakeTexts;
-        private string[] summonTexts;
-        private Random rand;
+        private readonly string[] _images;
+        private readonly string[] _attackTexts;
+        private readonly string[] _spellTexts;
+        private readonly string[] _dismissTexts;
+        private readonly string[] _miscTexts;
+        private readonly string[] _shakeTexts;
+        private readonly string[] _summonTexts;
+        private readonly Random _rand;
 
         public PathsAndTexts()
         {
-            #region Imp images
-            images = new string[]
+            #region Image paths
+            _images = new[]
                 {
                             "Images/image1.jpg",
                             "Images/image2.png",
@@ -31,53 +27,41 @@ namespace ImpBot
 
             #region Imp quotes
             #region Imp attack
-            attackTexts = new string[]
+            _attackTexts = new[]
             {
-                        // attack order quotes
-                        "Is this REALLY necessary?!",
-                        "This was NOT in my contract!",
-                        "Can't we all just get along?",
-                        "Ohhhh sure, send the little guy!"
-            };
-            #endregion
-            #region Imp spell
-            spellTexts = new string[]
-            {
-                 // spell quotes
-                        "What's in it for me?",
-                        "Do I have to?!",
-                        "Ahh! Okay, okay, okay, okay, okay, okay!",
-                        "Yeah, I'll get right on it."
-            };
-            #endregion
-            #region Imp dismiss
-            dismissTexts = new string[]
-            {
-                // dismissed quotes
-                        "You know, we've had a lot of fun together, it's been really special, but I think it's time I should start seeing other warlocks. Just a little on the side. No no no it's not you, it's not you, it's me. I just need my space, it's nobody's fault.",
-                        "Don't call on me, I'll call on you.",
-                        "Argh! I feel so used!",
-                        "Goodbye. Thanks.",
-                        "\\*indistinct grumbling*...I wish...*indistinct grumbling*...wish you were DEAD."
-            };
-            #endregion
-            #region Imp misc
-            miscTexts = new string[]
-            {
-                // misc quotes
-                        "What? You mean you can't kill this one by yourself?",
-                        "Make yourself useful and help me out on this one!",
-                        "Release me already, I've had enough!",
-                        "Alright, I'm on it! Stop yelling!",
-                        "No shi rakir no tiros kamil re lok ante refir shi rakir",
-                        "Maz ruk X rikk xi laz enkil parn zila zilthuras karkun thorje kar x zennshi"
+                // attack order quotes
+                "Is this REALLY necessary?!",
+                "This was NOT in my contract!",
+                "Can't we all just get along?",
+                "Ohhhh sure, send the little guy!"
             };
             #endregion
 
+            #region Imp spell
+            _spellTexts = new[]
+            {
+                 // spell quotes
+                "What's in it for me?",
+                "Do I have to?!",
+                "Ahh! Okay, okay, okay, okay, okay, okay!",
+                "Yeah, I'll get right on it."
+            };
+            #endregion
+
+            #region Imp dismiss
+            _dismissTexts = new[]
+            {
+                // dismissed quotes
+                "You know, we've had a lot of fun together, it's been really special, but I think it's time I should start seeing other warlocks. Just a little on the side. No no no it's not you, it's not you, it's me. I just need my space, it's nobody's fault.",
+                "Don't call on me, I'll call on you.",
+                "Argh! I feel so used!",
+                "Goodbye. Thanks.",
+                "\\*indistinct grumbling*...I wish...*indistinct grumbling*...wish you were DEAD."
+            };
             #endregion
 
             #region Imp shake
-            shakeTexts = new string[]
+            _shakeTexts = new[]
             {
                 "AAaahhh! S-s-stop it!",
                 "Hah-ah! Okay, okay, okay!",
@@ -86,55 +70,69 @@ namespace ImpBot
             #endregion
 
             #region Imp summon
-            summonTexts = new string[]
+            _summonTexts = new[]
             {
+                "What? You mean you can't kill this one by yourself?",
+                "No shi rakir no tiros kamil re lok ante refir shi rakir",
                 "\\*Demonic cackle*"
             };
             #endregion
 
-            rand = new Random();
+            #region Imp misc
+            _miscTexts = new[]
+            {
+                // misc quotes
+                "Make yourself useful and help me out on this one!",
+                "Release me already, I've had enough!",
+                "Maz ruk X rikk xi laz enkil parn zila zilthuras karkun thorje kar x zennshi"
+            };
+            #endregion
+
+            #endregion
+
+            _rand = new Random();
         }
 
         public string RandomImage()
         {
-            int randomImageIndex = rand.Next(images.Length);
-            string imageToPost = images[randomImageIndex];
-            return imageToPost;
+            var randomImageIndex = _rand.Next(_images.Length);
+            return _images[randomImageIndex];
         }
 
         public string RandomAttackText()
         {
-            int randomTextIndex = rand.Next(attackTexts.Length);
-            string textToPost = attackTexts[randomTextIndex];
-            return textToPost;
+            var randomTextIndex = _rand.Next(_attackTexts.Length);
+            return _attackTexts[randomTextIndex];
         }
 
         public string RandomSpellText()
         {
-            int randomTextIndex = rand.Next(spellTexts.Length);
-            string textToPost = spellTexts[randomTextIndex];
-            return textToPost;
+            var randomTextIndex = _rand.Next(_spellTexts.Length);
+            return _spellTexts[randomTextIndex];
         }
 
         public string RandomDismissText()
         {
-            int randomTextIndex = rand.Next(dismissTexts.Length);
-            string textToPost = dismissTexts[randomTextIndex];
-            return textToPost;
+            var randomTextIndex = _rand.Next(_dismissTexts.Length);
+            return _dismissTexts[randomTextIndex];
         }
 
         public string RandomMiscText()
         {
-            int randomTextIndex = rand.Next(miscTexts.Length);
-            string textToPost = miscTexts[randomTextIndex];
-            return textToPost;
+            var randomTextIndex = _rand.Next(_miscTexts.Length);
+            return _miscTexts[randomTextIndex];
         }
 
         public string ShakeText()
         {
-            int randomShakeIndex = rand.Next(shakeTexts.Length);
-            string text = shakeTexts[randomShakeIndex];
-            return text;
+            var randomShakeIndex = _rand.Next(_shakeTexts.Length);
+            return _shakeTexts[randomShakeIndex];
+        }
+
+        public string SummonText()
+        {
+            var randomSummonIndex = _rand.Next(_summonTexts.Length);
+            return _summonTexts[randomSummonIndex];
         }
 
     }

@@ -1,25 +1,22 @@
 ﻿using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ImpBot
 {
     public class SearchModule : ModuleBase
     {
-        PathsAndTexts pat = new PathsAndTexts();
+        private readonly PathsAndTexts _pat = new PathsAndTexts();
 
         // Search openweathermap.org at city name
         [Command("weather")]
         public async Task Weather([Summary("City input parameter")] string city)
         {
-            await ReplyAsync(pat.RandomAttackText());
+            await ReplyAsync(_pat.RandomAttackText());
 
             string response;
             using (var http = new HttpClient())
@@ -28,14 +25,14 @@ namespace ImpBot
 
             var data = JsonConvert.DeserializeObject<WeatherData>(response);
 
-            DateTime sunrise = new DateTime();
+            var sunrise = new DateTime();
             sunrise = sunrise.AddSeconds(data.sys.sunrise);
 
-            DateTime sunset = new DateTime();
+            var sunset = new DateTime();
             sunset = sunset.AddSeconds(data.sys.sunset);
 
             var embed = new EmbedBuilder()
-                .AddField(fb => fb.WithName(":earth_africa: Location:").WithValue($"{data.name}, {data.sys.country}"))
+                .AddField(fb => fb.WithName(":earth_africa: Location:").WithValue($"{data.name}, {data.sys.country}").WithIsInline(true))
                 .AddField(fb => fb.WithName(":straight_ruler: Lat/Lon:").WithValue($"{data.coord.lat}, {data.coord.lon}").WithIsInline(true))
                 .AddField(fb => fb.WithName(":sun_with_face: Temperature:").WithValue($"{data.main.temp} °C"))
                 .AddField(fb => fb.WithName(":pencil: Description:").WithValue(string.Join(", ", data.weather.Select(w => w.main))))
@@ -45,7 +42,7 @@ namespace ImpBot
                 .AddField(fb => fb.WithName(":sunrise_over_mountains: Sunrise:").WithValue($"{sunrise.Hour}:{sunrise.Minute}"))
                 .AddField(fb => fb.WithName(":city_sunset: Sunset:").WithValue($"{sunset.Hour}:{sunset.Minute}"))
                 .AddField(fb => fb.WithName(":dash: Wind:").WithValue($"Speed: {data.wind.speed} m/s \nDeg: {data.wind.deg} °"));
-            Embed em = embed.Build();
+            var em = embed.Build();
 
             await Context.Channel.SendMessageAsync("", embed: em);
 

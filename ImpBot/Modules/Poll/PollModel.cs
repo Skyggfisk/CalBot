@@ -8,7 +8,9 @@ namespace ImpBot.Modules.Poll
     {
         public string PollName { get; set; }
         public IUser Creator { get; set; }
-        public IList<PollItem> PollItems { get; set; }
+        public bool IsActive { get; set; }
+        public List<PollItem> PollItems { get; set; }
+        public List<IUser> VotedUsersList { get; set; }
     }
 
     public class PollItem

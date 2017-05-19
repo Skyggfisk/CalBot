@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Discord.Commands;
 using info.lundin.math;
 
@@ -18,10 +19,11 @@ namespace ImpBot.Modules.Math
 
         [Command("math"), Summary("Evaluates an input string as a mathematical expression")]
         [Alias("m", "domath", "eval")]
-        public async Task EvalString(string exp)
+        public async Task EvalString(params string[] exp)
         {
+            var exp1 = string.Join("", exp);
             double output;
-            switch (exp.ToLower().Trim())
+            switch (exp1.ToLower().Trim())
             {
                 case "e":
                     output = System.Math.E;
@@ -31,7 +33,7 @@ namespace ImpBot.Modules.Math
                     break;
                 default:
                     var parser = new ExpressionParser();
-                    output = parser.Parse(exp);
+                    output = parser.Parse(exp1);
                     break;
             }
             await ReplyAsync("" + output);

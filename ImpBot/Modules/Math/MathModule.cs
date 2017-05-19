@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Discord.Commands;
 using info.lundin.math;
-using System.Threading.Tasks;
 
-namespace ImpBot
+namespace ImpBot.Modules.Math
 {
     public class MathModule : ModuleBase
     {
@@ -21,9 +20,22 @@ namespace ImpBot
         [Alias("m", "domath", "eval")]
         public async Task EvalString(string exp)
         {
-            var parser = new ExpressionParser();
-            var output = parser.Parse(exp);
+            double output;
+            switch (exp.ToLower().Trim())
+            {
+                case "e":
+                    output = System.Math.E;
+                    break;
+                case "tau":
+                    output = System.Math.PI * 2;
+                    break;
+                default:
+                    var parser = new ExpressionParser();
+                    output = parser.Parse(exp);
+                    break;
+            }
             await ReplyAsync("" + output);
+
         }
 
         #region Old hacky methods

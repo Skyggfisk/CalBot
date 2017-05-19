@@ -1,8 +1,8 @@
-﻿using Discord.Commands;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Discord.Commands;
 
-namespace ImpBot
+namespace ImpBot.Modules.Games
 {
     public class GamesModule : ModuleBase
     {

@@ -1,12 +1,12 @@
-﻿using Discord;
-using Discord.Commands;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Discord;
+using Discord.Commands;
+using Newtonsoft.Json;
 
-namespace ImpBot
+namespace ImpBot.Modules.Search
 {
     public class SearchModule : ModuleBase
     {
@@ -26,22 +26,22 @@ namespace ImpBot
             var data = JsonConvert.DeserializeObject<WeatherData>(response);
 
             var sunrise = new DateTime();
-            sunrise = sunrise.AddSeconds(data.sys.sunrise);
+            sunrise = sunrise.AddSeconds(data.Sys.Sunrise);
 
             var sunset = new DateTime();
-            sunset = sunset.AddSeconds(data.sys.sunset);
+            sunset = sunset.AddSeconds(data.Sys.Sunset);
 
             var embed = new EmbedBuilder()
-                .AddField(fb => fb.WithName(":earth_africa: Location:").WithValue($"{data.name}, {data.sys.country}").WithIsInline(true))
-                .AddField(fb => fb.WithName(":straight_ruler: Lat/Lon:").WithValue($"{data.coord.lat}, {data.coord.lon}").WithIsInline(true))
-                .AddField(fb => fb.WithName(":sun_with_face: Temperature:").WithValue($"{data.main.temp} °C"))
-                .AddField(fb => fb.WithName(":pencil: Description:").WithValue(string.Join(", ", data.weather.Select(w => w.main))))
-                .AddField(fb => fb.WithName(":sunflower: Min / max:").WithValue($"{data.main.temp_min} °C / {data.main.temp_max} °C"))
-                .AddField(fb => fb.WithName(":gem: Pressure:").WithValue($"{data.main.pressure} hPa"))
-                .AddField(fb => fb.WithName(":sweat_drops: Humidity:").WithValue($"{data.main.humidity} %"))
+                .AddField(fb => fb.WithName(":earth_africa: Location:").WithValue($"{data.Name}, {data.Sys.Country}").WithIsInline(true))
+                .AddField(fb => fb.WithName(":straight_ruler: Lat/Lon:").WithValue($"{data.Coord.Lat}, {data.Coord.Lon}").WithIsInline(true))
+                .AddField(fb => fb.WithName(":sun_with_face: Temperature:").WithValue($"{data.Main.Temp} °C"))
+                .AddField(fb => fb.WithName(":pencil: Description:").WithValue(string.Join(", ", data.Weather.Select(w => w.Main))))
+                .AddField(fb => fb.WithName(":sunflower: Min / max:").WithValue($"{data.Main.TempMin} °C / {data.Main.TempMax} °C"))
+                .AddField(fb => fb.WithName(":gem: Pressure:").WithValue($"{data.Main.Pressure} hPa"))
+                .AddField(fb => fb.WithName(":sweat_drops: Humidity:").WithValue($"{data.Main.Humidity} %"))
                 .AddField(fb => fb.WithName(":sunrise_over_mountains: Sunrise:").WithValue($"{sunrise.Hour}:{sunrise.Minute}"))
                 .AddField(fb => fb.WithName(":city_sunset: Sunset:").WithValue($"{sunset.Hour}:{sunset.Minute}"))
-                .AddField(fb => fb.WithName(":dash: Wind:").WithValue($"Speed: {data.wind.speed} m/s \nDeg: {data.wind.deg} °"));
+                .AddField(fb => fb.WithName(":dash: Wind:").WithValue($"Speed: {data.Wind.Speed} m/s \nDeg: {data.Wind.Deg} °"));
             var em = embed.Build();
 
             await Context.Channel.SendMessageAsync("", embed: em);

@@ -19,7 +19,7 @@ namespace ImpBot.Modules.Poll
          */
 
         // Needed to keep the polls alive.
-        private static List<PollModel> _pollList = new List<PollModel>();
+        private static readonly List<PollModel> PollList = new List<PollModel>();
 
         [Command("PollHelp")]
         public async Task PollHelp()
@@ -50,7 +50,7 @@ namespace ImpBot.Modules.Poll
                 poll.PollItems.Add(v);
             }
 
-            _pollList.Add(poll);
+            PollList.Add(poll);
 
             var stringBuilder = new StringBuilder();
             foreach (var x in pollItems)
@@ -65,7 +65,7 @@ namespace ImpBot.Modules.Poll
             //var em = embed.Build();
 
             //await ReplyAsync("", embed: em);
-            await ReplyAsync($"created poll named: {poll.PollName} with options: \n{stringBuilder}");
+            await ReplyAsync($"created poll named \"{poll.PollName.ToUpper()}\" with options: \n{stringBuilder}");
         }
 
         // TODO: Stuff like naming and other fiddly parameters
@@ -83,22 +83,43 @@ namespace ImpBot.Modules.Poll
         [Command("EndPoll")]
         public async Task EndPoll(string pollName)
         {
+            var user = Context.Message.Author;
 
-            await ReplyAsync("NYI");
-        }
-
-        // TODO: Ends a poll prematurely without broadcasting results.
-        [Command("CancelPoll")]
-        public async Task CancelPoll(string pollName)
-        {
-            if (_pollList.Any(x => x.PollName == pollName))
+            // Not the right way to check. But nested = nasty :(
+            // Edit: 2 mins later... solution?
+            if (PollList.Any(x => x.PollName == pollName && x.Creator == user))
             {
-                _pollList.RemoveAll(x => x.PollName == pollName);
-                await ReplyAsync($"Removed poll {pollName}");
+                var poll = PollList.Find(x => x.PollName == pollName);
+                var stringBuilder = new StringBuilder();
+
+                foreach (var x in poll.PollItems)
+                {
+                    stringBuilder.AppendLine($"{x.ItemName}: {x.ItemVotes}");
+                }
+                await ReplyAsync($"Concluded poll \"{pollName.ToUpper()}\" with results: \n{stringBuilder}");
             }
             else
             {
-                await ReplyAsync($"Couldn't find an active poll with name {pollName}");
+                await ReplyAsync("Couldn't find poll.");
+            }
+            
+        }
+
+        // TODO: Needs to check both ifExists and isActive.
+        // Ends a poll prematurely without broadcasting results.
+        [Command("CancelPoll")]
+        public async Task CancelPoll(string pollName)
+        {
+            var user = Context.Message.Author;
+
+            if (PollList.Any(x => x.PollName == pollName) && PollList.Any(x => x.Creator == user))
+            {
+                PollList.RemoveAll(x => x.PollName == pollName); // bug: anybody can remove anything. Check EndPoll().
+                await ReplyAsync($"Removed poll \"{pollName.ToUpper()}\"");
+            }
+            else
+            {
+                await ReplyAsync($"Couldn't find an active poll with name \"{pollName.ToUpper()}\" or caller is not poll creator.");
             }
         }
 

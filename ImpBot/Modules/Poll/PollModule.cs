@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Discord.Commands;
 using System.Threading.Tasks;
@@ -17,10 +18,13 @@ namespace ImpBot.Modules.Poll
          * Until more advanced polls are available, it should only be possible to vote once per poll, per user.
          */
 
-        [Command("PollTest")]
-        public async Task PollTest()
+        // Needed to keep the polls alive.
+        private static List<PollModel> _pollList = new List<PollModel>();
+
+        [Command("PollHelp")]
+        public async Task PollHelp()
         {
-            await ReplyAsync("test from poll module");
+            await ReplyAsync("<PH> Needs some helpful text here");
         }
 
         // TODO: Print out the pollItems nicely. Needs a way to set amount of time.
@@ -46,6 +50,8 @@ namespace ImpBot.Modules.Poll
                 poll.PollItems.Add(v);
             }
 
+            _pollList.Add(poll);
+
             var stringBuilder = new StringBuilder();
             foreach (var x in pollItems)
             {
@@ -60,8 +66,6 @@ namespace ImpBot.Modules.Poll
 
             //await ReplyAsync("", embed: em);
             await ReplyAsync($"created poll named: {poll.PollName} with options: \n{stringBuilder}");
-
-            //await ReplyAsync("");
         }
 
         // TODO: Stuff like naming and other fiddly parameters
@@ -87,8 +91,15 @@ namespace ImpBot.Modules.Poll
         [Command("CancelPoll")]
         public async Task CancelPoll(string pollName)
         {
-
-            await ReplyAsync("NYI");
+            if (_pollList.Any(x => x.PollName == pollName))
+            {
+                _pollList.RemoveAll(x => x.PollName == pollName);
+                await ReplyAsync($"Removed poll {pollName}");
+            }
+            else
+            {
+                await ReplyAsync($"Couldn't find an active poll with name {pollName}");
+            }
         }
 
     }

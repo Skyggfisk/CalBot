@@ -58,13 +58,6 @@ namespace ImpBot.Modules.Poll
                 stringBuilder.AppendLine(x.Trim());
             }
 
-            //var embed = new EmbedBuilder()
-            //    .AddField(fb => fb.WithName("Poll name: ").WithValue($"{poll.PollName}"))
-            //    .AddField(fb => fb.WithName("Items: "))
-            //    .AddField(fb => fb.WithName(stringBuilder.ToString()));
-            //var em = embed.Build();
-
-            //await ReplyAsync("", embed: em);
             await ReplyAsync($"created poll named \"{poll.PollName.ToUpper()}\" with options: \n{stringBuilder}");
         }
 
@@ -74,8 +67,23 @@ namespace ImpBot.Modules.Poll
         [Command("Vote")]
         public async Task Vote(string pollName, string itemName)
         {
+            var user = Context.Message.Author;
+            var poll = PollList.Find(x => x.PollName == pollName);
 
-            await ReplyAsync("NYI");
+            var itemToVoteFor = poll.PollItems.Find(y => y.ItemName == itemName);
+
+            if (!poll.VotedUsersList.Contains(user))
+            {
+                poll.VotedUsersList.Add(user);
+                itemToVoteFor.ItemVotes++;
+                await ReplyAsync($"{user} voted for {itemName}");
+            }
+            else
+            {
+                await ReplyAsync("You've already voted.");
+            }
+
+
         }
 
 
@@ -102,7 +110,7 @@ namespace ImpBot.Modules.Poll
             {
                 await ReplyAsync("Couldn't find poll.");
             }
-            
+
         }
 
         // TODO: Needs to check both ifExists and isActive.

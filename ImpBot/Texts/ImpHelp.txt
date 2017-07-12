@@ -10,6 +10,17 @@ Some text and help and info and memes
 	How about quotations
 		"Cast shadowbolt!"
 
+Current commands include:
+> roll
+> shake
+> image
+> countdown
+> math
+> poll
+> weather
+
+type commandname + help to get more info (NYI)
+
 
 # And some more bricks for this wall:
 	*Cackles in demonic*

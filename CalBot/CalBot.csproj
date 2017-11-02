@@ -7,8 +7,8 @@
     <ProjectGuid>{D30AC98E-AA8F-48B2-A09E-62DF65C41CA3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ImpBot</RootNamespace>
-    <AssemblyName>ImpBot</AssemblyName>
+    <RootNamespace>CalBot</RootNamespace>
+    <AssemblyName>CalBot</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ImpBot.Program</StartupObject>
+    <StartupObject>CalBot.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Discord.Net.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

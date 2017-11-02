@@ -5,7 +5,7 @@ using Discord.Commands;
 using System.Threading.Tasks;
 using Discord;
 
-namespace ImpBot.Modules.Poll
+namespace CalBot.Modules.Poll
 {
     public class PollModule : ModuleBase
     {

@@ -1,10 +1,9 @@
 ﻿```Markdown
-# Hello there! I'm Calcifer, your friendly resident fire demon.
+# Hi! I'm Calcifer, your friendly resident fire demon.
 # =================================================================
 
 Current commands include:
 > roll
-> shake
 > image
 > define
 > countdown
@@ -13,9 +12,5 @@ Current commands include:
 > weather
 
 type help + command name to get more info.
-
-
-# And some more bricks for this wall:
-	*Laughs in fire*
-
+			*Laughs in fire*
 ```

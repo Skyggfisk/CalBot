@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Discord.Commands;
 
-namespace ImpBot
+namespace CalBot
 {
-    public class ImpCommandModule : ModuleBase
+    public class CalCommandModule : ModuleBase
     {
         private readonly PathsAndTexts _pat = new PathsAndTexts();
 
@@ -45,13 +45,6 @@ namespace ImpBot
             await ReplyAsync(helptext);
         }
 
-        // Shake the imp to recieve an answer to your questions
-        [Command("shake"), Summary("Shake the poor imp. Why would you do this?")]
-        public async Task Shake()
-        {
-            await ReplyAsync(_pat.ShakeText());
-        }
-
 		// Test command for CalQuotes
 		[Command("cal")]
 		public async Task CalQuote()
@@ -59,28 +52,13 @@ namespace ImpBot
 			await ReplyAsync(_pat.RandomCalciferQuote());
 		}
 
-        // Summons a new imp by changing its display name and avatar
-        [Command("resummon"), Summary("Summons a new imp"), Alias("sacrifice", "sac")]
-        public async Task Resummon()
-        {
-            await ReplyAsync("\\*Demonic cackle*");
-        }
-
         [Command("image"), Summary("Posts an image to chat."), Alias("img", "pic", "picture", "meme")]
         public async Task PostImage()
         {
-            await Context.Channel.SendFileAsync(_pat.RandomImage());
+            await Context.Channel.SendFileAsync(_pat.RandomImage(), _pat.RandomCalciferQuote());
         }
 
-        [Command("talk"), Summary("Says some random imp stuff."), Alias("joke", "silly", "imp")]
-        public async Task Talk()
-        {
-            await ReplyAsync(_pat.RandomAttackText());
-        }
-
-
-
-        // !say hello -> hello
+        // c!say hello -> hello
         [Command("say"), Summary("Echoes a message.")]
         public async Task Say([Remainder, Summary("The text to echo")] string echo)
         {

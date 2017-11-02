@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ImpBot.Modules.Search
+namespace CalBot.Modules.Search
 {
     public class Metadata
     {

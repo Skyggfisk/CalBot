@@ -1,4 +1,4 @@
-﻿namespace ImpBot.Modules.Quiz
+﻿namespace CalBot.Modules.Quiz
 {
     public class QuizModule
     {

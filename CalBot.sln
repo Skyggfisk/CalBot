@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpBot", "ImpBot\ImpBot.csproj", "{D30AC98E-AA8F-48B2-A09E-62DF65C41CA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalBot", "ImpBot\CalBot.csproj", "{D30AC98E-AA8F-48B2-A09E-62DF65C41CA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EFD17D1-320C-4699-94E7-249E274C25F6}
 	EndGlobalSection
 EndGlobal

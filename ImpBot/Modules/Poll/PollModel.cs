@@ -2,7 +2,7 @@
 using Discord;
 
 
-namespace ImpBot.Modules.Poll
+namespace CalBot.Modules.Poll
 {
     public class PollModel
     {

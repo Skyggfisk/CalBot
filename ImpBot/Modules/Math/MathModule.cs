@@ -2,12 +2,12 @@
 using Discord.Commands;
 using info.lundin.math;
 
-namespace ImpBot.Modules.Math
+namespace CalBot.Modules.Math
 {
     public class MathModule : ModuleBase
     {
         /*
-         * Can't do stuff like: !imp math 30+42-(2^1), 
+         * Can't do stuff like: c!math 30+42-(2^1), 
          * as this will require a parsing engine, taking in the input parameter and determine operations etc.
          * This would also require a ton of RegEx and sanitation of input simply to insure malicuous/faulty operations or code injection don't occur.
          * Or, well, not that it can't be done... it's just really, really hard and labour-intensive. AKA I don't want to.
@@ -35,7 +35,7 @@ namespace ImpBot.Modules.Math
                     output = parser.Parse(exp1);
                     break;
             }
-            await ReplyAsync("" + output);
+            await ReplyAsync("Hmm. That makes " + output);
 
         }
 

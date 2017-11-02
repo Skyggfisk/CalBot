@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 
-namespace ImpBot.Modules.Administration
+namespace CalBot.Modules.Administration
 {
     public class ManagementModule : ModuleBase
     {

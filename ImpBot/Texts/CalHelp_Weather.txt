@@ -3,11 +3,11 @@
 # =================================================================
 
 Enter the command along with the name of the city which you'd like the weather report for.
-This will fetch the current weather statistics courtesy of :sunny: http://openweathermap.org/
+This will fetch the current weather statistics courtesy of ⛅ http://openweathermap.org/
 Like so:
-  > !cal weather newyork
+  > c!weather newyork
 
-Try it! Don't be shy. But becareful, it's a little... detailed.
+Try it! Don't be shy.
 
 # =================================================================
 ```

@@ -52,6 +52,13 @@ namespace ImpBot
             await ReplyAsync(_pat.ShakeText());
         }
 
+		// Test command for CalQuotes
+		[Command("cal")]
+		public async Task CalQuote()
+		{
+			await ReplyAsync(_pat.RandomCalciferQuote());
+		}
+
         // Summons a new imp by changing its display name and avatar
         [Command("resummon"), Summary("Summons a new imp"), Alias("sacrifice", "sac")]
         public async Task Resummon()

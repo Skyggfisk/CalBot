@@ -4,17 +4,17 @@
 
 So to start off. This is a simple straw poll.
 
-  > !cal poll "pancakes or waffles" pancakes waffles
+  > c!poll "pancakes or waffles" pancakes waffles
 
 Would create a poll called PANCAKES OR WAFFLES, giving you the option to vote for either PANCAKES or WAFFLES.
 You vote like this:
 
-  > !cal vote "pancakes or waffles" pancakes
+  > c!vote "pancakes or waffles" pancakes
 
 This would add a vote for PANCAKES on the poll in question.
 Assuming you started the poll, you could then end it like so:
 
-  > !cal endpoll "pancakes or waffles"
+  > c!endpoll "pancakes or waffles"
 
 This would end the polling and broadcast the final results to chat. Hurray!
 

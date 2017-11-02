@@ -1,14 +1,6 @@
 ﻿```Markdown
-# Hello there! I'm Calcifer, your friendly domestic demonic helper.
+# Hello there! I'm Calcifer, your friendly resident fire demon.
 # =================================================================
-
-Some text and help and info and memes
-	How does
-		Formatting work?
-		Like this?
-		<What will this do?>
-	How about quotations
-		"Cast shadowbolt!"
 
 Current commands include:
 > roll
@@ -24,6 +16,6 @@ type help + command name to get more info.
 
 
 # And some more bricks for this wall:
-	*Laughs in demonic*
+	*Laughs in fire*
 
 ```

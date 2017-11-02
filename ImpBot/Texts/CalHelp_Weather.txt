@@ -1,0 +1,13 @@
+﻿```Markdown
+# Hello there! Alright so, this "weather" thing, right...
+# =================================================================
+
+Enter the command along with the name of the city which you'd like the weather report for.
+This will fetch the current weather statistics courtesy of :sunny: http://openweathermap.org/
+Like so:
+  > !cal weather newyork
+
+Try it! Don't be shy. But becareful, it's a little... detailed.
+
+# =================================================================
+```

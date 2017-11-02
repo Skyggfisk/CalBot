@@ -21,14 +21,8 @@ namespace ImpBot.Modules.Poll
         // Needed to keep the polls alive.
         private static readonly List<PollModel> PollList = new List<PollModel>();
 
-        [Command("PollHelp")]
-        public async Task PollHelp()
-        {
-            await ReplyAsync("<PH> Needs some helpful text here");
-        }
-
         // TODO: Print out the pollItems nicely. Needs a way to set amount of time.
-        // TODO: Naming like "Change guild name?" - a fix could be "!imp poll name:Change guild name?"
+        // TODO: Naming like "Change guild name?" - a fix could be "!cal poll name:Change guild name?"
         [Command("Poll")]
         public async Task StartPoll(string pollName, params string[] pollItems)
         {
@@ -58,12 +52,12 @@ namespace ImpBot.Modules.Poll
                 stringBuilder.AppendLine(x.Trim());
             }
 
-            await ReplyAsync($"created poll named \"{poll.PollName.ToUpper()}\" with options: \n{stringBuilder}");
+            await ReplyAsync($"created poll named \"{poll.PollName.ToUpper()}\" with options: \n{stringBuilder.ToString().ToUpper()}");
         }
 
         // TODO: Stuff like naming and other fiddly parameters
         // cast a vote for an item in an active poll
-        // Example: !imp vote ChangeGuildName? yes
+        // Example: !cal vote ChangeGuildName? yes
         [Command("Vote")]
         public async Task Vote(string pollName, string itemName)
         {
@@ -102,7 +96,7 @@ namespace ImpBot.Modules.Poll
 
                 foreach (var x in poll.PollItems)
                 {
-                    stringBuilder.AppendLine($"{x.ItemName}: {x.ItemVotes}");
+                    stringBuilder.AppendLine($"{x.ItemName.ToUpper()}: {x.ItemVotes}");
                 }
                 await ReplyAsync($"Concluded poll \"{pollName.ToUpper()}\" with results: \n{stringBuilder}");
             }

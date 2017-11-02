@@ -7,10 +7,41 @@ namespace ImpBot
     {
         private readonly PathsAndTexts _pat = new PathsAndTexts();
 
+        [Command("help")]
+        public async Task HelpCommand(string input)
+        {
+            switch (input)
+            {
+                case "math":
+                    await ReplyAsync("NYI");
+                    break;
+                case "roll":
+                    await ReplyAsync("NYI");
+                    break;
+                case "poll":
+                    var pollHelp = System.IO.File.ReadAllText(@"Texts/CalHelp_Poll.txt");
+                    await ReplyAsync(pollHelp);
+                    break;
+                case "image":
+                    await ReplyAsync("NYI");
+                    break;
+                case "quiz":
+                    await ReplyAsync("NYI");
+                    break;
+                case "weather":
+                    var weatherHelp = System.IO.File.ReadAllText(@"Texts/CalHelp_Weather.txt");
+                    await ReplyAsync(weatherHelp);
+                    break;
+                default:
+                    await ReplyAsync($"Help for {input.ToUpper()} not found");
+                    break;
+            }
+        }
+
         [Command("help"), Summary("Get help and general guidelines for bot usage"), Alias("info", "how")]
         public async Task Help()
         {
-            var helptext = System.IO.File.ReadAllText(@"Texts/ImpHelp.txt");
+            var helptext = System.IO.File.ReadAllText(@"Texts/CalHelp.txt");
             await ReplyAsync(helptext);
         }
 

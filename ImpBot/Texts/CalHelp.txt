@@ -1,5 +1,5 @@
 ﻿```Markdown
-# Hello there! I'm imp, your friendly neighbourhood demonic helper.
+# Hello there! I'm Calcifer, your friendly domestic demonic helper.
 # =================================================================
 
 Some text and help and info and memes
@@ -14,15 +14,16 @@ Current commands include:
 > roll
 > shake
 > image
+> define
 > countdown
 > math
 > poll
 > weather
 
-type commandname + help to get more info (NYI)
+type help + command name to get more info.
 
 
 # And some more bricks for this wall:
-	*Cackles in demonic*
+	*Laughs in demonic*
 
 ```

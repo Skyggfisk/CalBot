@@ -21,13 +21,17 @@ namespace ImpBot
             _commands = new CommandService();
             _map = new DependencyMap();
 
-            const string token = "Mjc5MzY4MzkzOTczNDMyMzIx.C6wo4w.uWM2KzfJ7VM3nv0Gg84pDmF3Kpc";
+            const string token = "MzM0ODM0OTI4NTkwMjU4MTc2.DEg_Cw.RQv_nXrGIzBmkTbqWaHql0ljyoA";
 
             await InstallCommands();
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
-            await Task.Delay(-1);
 
+#pragma warning disable 4014
+            _client.SetGameAsync("with fire");
+#pragma warning restore 4014
+
+            await Task.Delay(-1);
         }
         public async Task InstallCommands()
         {
@@ -50,8 +54,8 @@ namespace ImpBot
             if (message == null) return;
             // Create a number to track where the prefix ends and the command begins
             var argPos = 0;
-            // Determine if the message is a command, based on if it starts with '!' or a mention prefix
-            if (!(message.HasStringPrefix("!imp ", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
+            // Determine if the message is a command, based on if it starts with 'c!' or a mention prefix
+            if (!(message.HasStringPrefix("c!", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos))) return;
             // Create a Command Context
             var context = new CommandContext(_client, message);
             // Execute the command. (result does not indicate a return value, 

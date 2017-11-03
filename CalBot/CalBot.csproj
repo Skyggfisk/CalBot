@@ -171,7 +171,6 @@
   <ItemGroup>
     <Compile Include="Modules\Games\GamesModule.cs" />
     <Compile Include="CalCommandModule.cs" />
-    <Compile Include="Modules\Administration\ManagementModule.cs" />
     <Compile Include="Modules\Math\MathModule.cs" />
     <Compile Include="Modules\Search\OxfordModels.cs" />
     <Compile Include="PathsAndTexts.cs" />

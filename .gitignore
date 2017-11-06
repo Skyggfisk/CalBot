@@ -242,4 +242,4 @@ ModelManifest.xml
 .fake/
 
 # token file
-/ImpBot/Texts/token.txt
+CalBot/Texts/token.txt
